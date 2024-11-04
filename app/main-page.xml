@@ -1,0 +1,36 @@
+const students = [
+    { name: "Alice", chemistry: 85, biology: 92, dob: "15-02-2003" },
+    { name: "Bob", chemistry: 85, biology: 92, dob: "20-04-2003" },
+    { name: "Charlie", chemistry: 90, biology: 88, dob: "10-01-2002" },
+    // Add more students as needed
+];
+
+function sortStudents(students) {
+    return students.sort((a, b) => {
+        // Calculate total marks for each student
+        const totalMarksA = a.chemistry + a.biology;
+        const totalMarksB = b.chemistry + b.biology;
+
+        // Primary sort: total marks in descending order
+        if (totalMarksA !== totalMarksB) return totalMarksB - totalMarksA;
+
+        // Secondary sort: biology marks in descending order
+        if (a.biology !== b.biology) return b.biology - a.biology;
+
+        // Tertiary sort: chemistry marks in descending order
+        if (a.chemistry !== b.chemistry) return b.chemistry - a.chemistry;
+
+        // Final sort: date of birth in ascending order
+        const [dayA, monthA, yearA] = a.dob.split("-").map(Number);
+        const [dayB, monthB, yearB] = b.dob.split("-").map(Number);
+        
+        // Compare year, month, day for date of birth
+        if (yearA !== yearB) return yearA - yearB;
+        if (monthA !== monthB) return monthA - monthB;
+        return dayA - dayB;
+    });
+}
+
+const sortedStudents = sortStudents(students);
+console.log(sortedStudents);
+
